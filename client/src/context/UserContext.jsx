@@ -4,6 +4,10 @@ import axios from "axios";
 
 const initialState = {
   user: "",
+  conditional: {
+    member: true,
+    alert: true,
+  },
 };
 
 export const UserContext = createContext(initialState);
@@ -23,7 +27,7 @@ export const UserProvider = ({ children }) => {
       default:
         throw new Error(`no such action: ${action.type}`);
     }
-  });
+  }, initialState);
 
   const login = async (email, password) => {
     try {

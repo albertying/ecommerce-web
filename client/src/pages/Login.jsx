@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useUserContext } from "../context/UserContext";
 
 function Login() {
-  const { user, login, register } = useUserContext();
+  const { user, conditional, login, register } = useUserContext();
 
   const [userCredentials, setUserCredentials] = useState({
     email: "",
