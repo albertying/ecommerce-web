@@ -1,8 +1,10 @@
 import cors from "cors";
 import express from "express";
+import * as dotenv from "dotenv";
 
 import authenticationRoutes from "./routes/authenticationRoutes.js";
 
+dotenv.config();
 const app = express();
 
 // middleware

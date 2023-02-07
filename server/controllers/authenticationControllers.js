@@ -1,5 +1,6 @@
 import pool from "../db/db.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const register = async (req, res) => {
   try {
@@ -21,7 +22,16 @@ const register = async (req, res) => {
         "INSERT INTO users (user_email, user_password) VALUES ($1, $2) RETURNING *",
         [email, hash]
       );
-      res.json(newUser.rows[0]);
+
+      const payload = {
+        user: newUser.rows[0].user_id,
+      };
+
+      const token = jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+
+      res.json({ user: newUser.rows[0].user_id, token });
     });
   } catch (error) {
     res.json({ error: error.message });
@@ -42,7 +52,15 @@ const login = async (req, res) => {
         res.json({ error: err.message });
       }
       if (result) {
-        res.json(user.rows[0]);
+        const payload = {
+          user: user.rows[0].user_id,
+        };
+
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+          expiresIn: "1h",
+        });
+
+        res.json({ user: user.rows[0].user_id, token });
       } else {
         res.json({ error: "Password is incorrect" });
       }
