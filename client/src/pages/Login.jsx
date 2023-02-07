@@ -3,25 +3,16 @@ import { useState, useEffect } from "react";
 import { useUserContext } from "../context/UserContext";
 
 function Login() {
-  const { user, conditional, login, register } = useUserContext();
+  const { user, conditionals, login, register } = useUserContext();
 
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
   });
 
-  const [conditionals, setConditionals] = useState({
-    alert: true,
+  const [member, setMember] = useState({
     member: true,
   });
-
-  useEffect(() => {
-    if (conditionals.alert) {
-      setTimeout(() => {
-        setConditionals({ ...conditionals, alert: false });
-      }, 3000);
-    }
-  }, [conditionals.alert]);
 
   const handleChange = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
@@ -30,7 +21,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, password } = userCredentials;
-    if (conditionals.member) {
+    if (member.member) {
       login(email, password);
     } else {
       register(email, password);
@@ -40,7 +31,7 @@ function Login() {
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
-        <h1>{conditionals.member ? "Login" : "Register"}</h1>
+        <h1>{member.member ? "Login" : "Register"}</h1>
         <label htmlFor="email">Email address</label>
         <input
           type="email"
@@ -67,7 +58,7 @@ function Login() {
 
         <button type="submit">Submit</button>
         <p>
-          {conditionals.member ? (
+          {member.member ? (
             <span>Don't have an account?</span>
           ) : (
             <span>Already have an account?</span>
@@ -75,9 +66,9 @@ function Login() {
           Click{" "}
           <a
             onClick={() => {
-              setConditionals({
-                ...conditionals,
-                member: !conditionals.member,
+              setMember({
+                ...member,
+                member: !member.member,
               });
             }}
           >

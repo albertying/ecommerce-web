@@ -4,9 +4,8 @@ import axios from "axios";
 
 const initialState = {
   user: "",
-  conditional: {
-    member: true,
-    alert: true,
+  conditionals: {
+    alert: false,
   },
 };
 
@@ -24,10 +23,32 @@ export const UserProvider = ({ children }) => {
         return { ...state, user: action.payload };
       case "LOGOUT":
         return { ...state, user: "" };
+      case "SHOW_ALERT":
+        return {
+          ...state,
+          conditionals: {
+            alert: true,
+          },
+        };
+      case "HIDE_ALERT":
+        return {
+          ...state,
+          conditionals: {
+            alert: false,
+          },
+        };
       default:
         throw new Error(`no such action: ${action.type}`);
     }
   }, initialState);
+
+  const alert = () => {
+    if (state.conditionals.alert) return;
+    dispatch({ type: "SHOW_ALERT" });
+    setTimeout(() => {
+      dispatch({ type: "HIDE_ALERT" });
+    }, 3000);
+  };
 
   const login = async (email, password) => {
     try {
@@ -37,11 +58,13 @@ export const UserProvider = ({ children }) => {
       });
 
       if (data.error && data.error === "User does not exist") {
-        console.log("create an error one dday");
+        console.log("User does not exist");
+        alert();
       }
 
       if (data.error && data.error === "Password is incorrect") {
-        console.log("create an error one dddday");
+        console.log("Password is incorrect");
+        alert();
       }
 
       console.log(data);
@@ -60,8 +83,11 @@ export const UserProvider = ({ children }) => {
       });
 
       if (data.error && data.error === "User already exists") {
-        console.log("create an error one day");
+        console.log("User already exists");
+        alert();
       }
+
+      console.log(data);
 
       dispatch({ type: "REGISTER", payload: data.user_id });
     } catch (error) {
