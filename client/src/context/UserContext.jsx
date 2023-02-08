@@ -5,7 +5,10 @@ import axios from "axios";
 const initialState = {
   user: "",
   conditionals: {
-    alert: false,
+    alert: {
+      show: false,
+      message: "",
+    },
   },
 };
 
@@ -27,14 +30,20 @@ export const UserProvider = ({ children }) => {
         return {
           ...state,
           conditionals: {
-            alert: true,
+            alert: {
+              show: true,
+              message: action.payload,
+            },
           },
         };
       case "HIDE_ALERT":
         return {
           ...state,
           conditionals: {
-            alert: false,
+            alert: {
+              show: false,
+              message: "",
+            },
           },
         };
       default:
@@ -42,9 +51,9 @@ export const UserProvider = ({ children }) => {
     }
   }, initialState);
 
-  const alert = () => {
-    if (state.conditionals.alert) return;
-    dispatch({ type: "SHOW_ALERT" });
+  const alert = (alertMessage) => {
+    if (state.conditionals.alert.show) return;
+    dispatch({ type: "SHOW_ALERT", payload: alertMessage });
     setTimeout(() => {
       dispatch({ type: "HIDE_ALERT" });
     }, 3000);
@@ -59,12 +68,12 @@ export const UserProvider = ({ children }) => {
 
       if (data.error && data.error === "User does not exist") {
         console.log("User does not exist");
-        alert();
+        alert("User does not exist");
       }
 
       if (data.error && data.error === "Password is incorrect") {
         console.log("Password is incorrect");
-        alert();
+        alert("Password is incorrect");
       }
 
       console.log(data);
@@ -84,7 +93,7 @@ export const UserProvider = ({ children }) => {
 
       if (data.error && data.error === "User already exists") {
         console.log("User already exists");
-        alert();
+        alert("User already exists");
       }
 
       console.log(data);

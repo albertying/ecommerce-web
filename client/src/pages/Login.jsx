@@ -1,6 +1,7 @@
 import "../css/login.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUserContext } from "../context/UserContext";
+import Alert from "../components/Alert";
 
 function Login() {
   const { user, conditionals, login, register } = useUserContext();
@@ -76,7 +77,7 @@ function Login() {
           </a>
           .
         </p>
-        {conditionals.alert ? <h5>Email or password is incorrect.</h5> : null}
+        {conditionals.alert.show ? <Alert /> : null}
         <h1>{JSON.stringify(user)}</h1>
       </form>
     </div>
