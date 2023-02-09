@@ -1,0 +1,17 @@
+nav {
+  background-color: #0f181f;
+  outline: 1px solid #252e35;
+}
+
+a {
+  color: gray;
+  text-decoration: none;
+}
+
+.left {
+  padding-left: 20rem;
+}
+
+.right {
+  padding-right: 20rem;
+}

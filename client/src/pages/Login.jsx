@@ -1,10 +1,12 @@
 import "../css/login.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserContext } from "../context/UserContext";
 import Alert from "../components/Alert";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const { user, conditionals, login, register } = useUserContext();
+  const navigate = useNavigate();
 
   const [userCredentials, setUserCredentials] = useState({
     email: "",
@@ -14,6 +16,14 @@ function Login() {
   const [member, setMember] = useState({
     member: true,
   });
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });

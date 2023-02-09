@@ -78,7 +78,9 @@ export const UserProvider = ({ children }) => {
 
       console.log(data);
 
-      dispatch({ type: "LOGIN", payload: data.user_id });
+      localStorage.setItem("token", data.token);
+
+      dispatch({ type: "LOGIN", payload: data.user });
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +100,9 @@ export const UserProvider = ({ children }) => {
 
       console.log(data);
 
-      dispatch({ type: "REGISTER", payload: data.user_id });
+      localStorage.setItem("token", data.token);
+
+      dispatch({ type: "REGISTER", payload: data.user });
     } catch (error) {
       console.log(error);
     }

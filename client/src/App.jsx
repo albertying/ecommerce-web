@@ -1,4 +1,6 @@
-import { Home, Login } from "./pages/index";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Nav from "./components/Nav";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -17,6 +19,7 @@ function App() {
   ]);
   return (
     <UserProvider>
+      <Nav />
       <RouterProvider router={router} />
     </UserProvider>
   );
