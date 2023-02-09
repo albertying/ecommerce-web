@@ -1,5 +1,5 @@
 import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Landing from "./pages/Landing";
 import Nav from "./components/Nav";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -10,7 +10,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: <Landing />,
     },
     {
       path: "/login",

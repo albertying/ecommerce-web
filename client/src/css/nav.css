@@ -1,6 +1,11 @@
 nav {
-  background-color: #0f181f;
-  outline: 1px solid #252e35;
+  background-color: #1e272e;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1;
+  height: 2.5rem;
 }
 
 a {
