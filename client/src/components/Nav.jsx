@@ -3,6 +3,7 @@ import { useUserContext } from "../context/UserContext";
 
 function Nav() {
   const { user, logout } = useUserContext();
+
   return (
     <div>
       <nav>
@@ -22,7 +23,9 @@ function Nav() {
               >
                 Logout
               </a>
-            ) : null}
+            ) : (
+              <a href="/login">Login</a>
+            )}
           </li>
         </ul>
       </nav>

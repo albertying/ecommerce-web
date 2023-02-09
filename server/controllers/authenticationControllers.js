@@ -31,7 +31,7 @@ const register = async (req, res) => {
         expiresIn: "1h",
       });
 
-      res.json({ user: newUser.rows[0].user_id, token });
+      res.json({ userId: newUser.rows[0].user_id, token });
     });
   } catch (error) {
     res.json({ error: error.message });
@@ -60,7 +60,7 @@ const login = async (req, res) => {
           expiresIn: "1h",
         });
 
-        res.json({ user: user.rows[0].user_id, token });
+        res.json({ userId: user.rows[0].user_id, token });
       } else {
         res.json({ error: "Password is incorrect" });
       }

@@ -3,7 +3,9 @@ import { createContext, useContext, useReducer } from "react";
 import axios from "axios";
 
 const initialState = {
-  user: "",
+  user: {
+    id: "",
+  },
   conditionals: {
     alert: {
       show: false,
@@ -20,12 +22,19 @@ export const UserProvider = ({ children }) => {
       case "LOGIN":
         return {
           ...state,
-          user: action.payload,
+          user: {
+            id: action.payload,
+          },
         };
       case "REGISTER":
-        return { ...state, user: action.payload };
+        return {
+          ...state,
+          user: {
+            id: action.payload,
+          },
+        };
       case "LOGOUT":
-        return { ...state, user: "" };
+        return { ...state, user: "", conditionals: { alert: { show: false } } };
       case "SHOW_ALERT":
         return {
           ...state,
@@ -80,7 +89,7 @@ export const UserProvider = ({ children }) => {
 
       localStorage.setItem("token", data.token);
 
-      dispatch({ type: "LOGIN", payload: data.user });
+      dispatch({ type: "LOGIN", payload: data.userId });
     } catch (error) {
       console.log(error);
     }
@@ -102,7 +111,7 @@ export const UserProvider = ({ children }) => {
 
       localStorage.setItem("token", data.token);
 
-      dispatch({ type: "REGISTER", payload: data.user });
+      dispatch({ type: "REGISTER", payload: data.userId });
     } catch (error) {
       console.log(error);
     }
