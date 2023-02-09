@@ -2,10 +2,14 @@ import { createContext, useContext, useReducer } from "react";
 
 import axios from "axios";
 
+const userId = localStorage.getItem("userId");
+const token = localStorage.getItem("token");
+
 const initialState = {
   user: {
-    id: "",
+    id: userId ? userId : "",
   },
+  token: token ? token : "",
   conditionals: {
     alert: {
       show: false,
@@ -78,15 +82,18 @@ export const UserProvider = ({ children }) => {
       if (data.error && data.error === "User does not exist") {
         console.log("User does not exist");
         alert("User does not exist");
+        return;
       }
 
       if (data.error && data.error === "Password is incorrect") {
         console.log("Password is incorrect");
         alert("Password is incorrect");
+        return;
       }
 
       console.log(data);
 
+      localStorage.setItem("userId", data.userId);
       localStorage.setItem("token", data.token);
 
       dispatch({ type: "LOGIN", payload: data.userId });
@@ -105,10 +112,12 @@ export const UserProvider = ({ children }) => {
       if (data.error && data.error === "User already exists") {
         console.log("User already exists");
         alert("User already exists");
+        return;
       }
 
       console.log(data);
 
+      localStorage.setItem("userId", data.userId);
       localStorage.setItem("token", data.token);
 
       dispatch({ type: "REGISTER", payload: data.userId });
@@ -118,6 +127,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
+    localStorage.removeItem("userId");
     localStorage.removeItem("token");
     dispatch({ type: "LOGOUT" });
   };

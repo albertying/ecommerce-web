@@ -1,8 +1,14 @@
 import "../css/nav.css";
 import { useUserContext } from "../context/UserContext";
 
+import { useEffect } from "react";
+
 function Nav() {
   const { user, logout } = useUserContext();
+
+  useEffect(() => {
+    console.log(user.id);
+  });
 
   return (
     <div>
@@ -14,18 +20,17 @@ function Nav() {
         </ul>
         <ul className="right">
           <li>
-            {user ? (
-              <a
-                href="/"
-                onClick={() => {
+            <a
+              className="log-a"
+              onClick={() => {
+                if (user.id) {
                   logout();
-                }}
-              >
-                Logout
-              </a>
-            ) : (
-              <a href="/login">Login</a>
-            )}
+                }
+              }}
+              href={user.id ? "/" : "login"}
+            >
+              {user.id ? "Logout" : "Login"}
+            </a>
           </li>
         </ul>
       </nav>

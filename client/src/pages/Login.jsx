@@ -19,11 +19,9 @@ function Login() {
 
   useEffect(() => {
     if (user.id) {
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
+      navigate("/");
     }
-  }, [user.id]);
+  }, [user.id, navigate]);
 
   const handleChange = (e) => {
     setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
@@ -88,7 +86,6 @@ function Login() {
           .
         </p>
         {conditionals.alert.show ? <Alert /> : null}
-        <h1>{JSON.stringify(user.id)}</h1>
       </form>
     </div>
   );
