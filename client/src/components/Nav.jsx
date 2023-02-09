@@ -1,6 +1,8 @@
 import "../css/nav.css";
+import { useUserContext } from "../context/UserContext";
 
 function Nav() {
+  const { user, logout } = useUserContext();
   return (
     <div>
       <nav>
@@ -11,7 +13,16 @@ function Nav() {
         </ul>
         <ul className="right">
           <li>
-            <a href="/">Logout</a>
+            {user ? (
+              <a
+                href="/"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                Logout
+              </a>
+            ) : null}
           </li>
         </ul>
       </nav>

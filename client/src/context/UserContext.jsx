@@ -108,8 +108,13 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    dispatch({ type: "LOGOUT" });
+  };
+
   return (
-    <UserContext.Provider value={{ ...state, login, register }}>
+    <UserContext.Provider value={{ ...state, login, logout, register }}>
       {children}
     </UserContext.Provider>
   );
