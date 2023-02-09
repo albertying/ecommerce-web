@@ -15,23 +15,26 @@ function Nav() {
       <nav>
         <ul className="left">
           <li>
-            <strong>Placeholder</strong>
+            <a href="/">
+              <strong className="log-a">Placeholder</strong>
+            </a>
           </li>
         </ul>
         <ul className="right">
-          <li>
-            <a
-              className="log-a"
-              onClick={() => {
-                if (user.id) {
-                  logout();
-                }
-              }}
-              href={user.id ? "/" : "login"}
-            >
-              {user.id ? "Logout" : "Login"}
-            </a>
-          </li>
+          <a
+            className="log-a"
+            id="log-a"
+            onClick={() => {
+              if (user.id) {
+                logout();
+                document.getElementById("log-a").href = "/";
+              } else {
+                document.getElementById("log-a").href = "/login";
+              }
+            }}
+          >
+            {user.id ? "Logout" : "Login"}
+          </a>
         </ul>
       </nav>
     </div>

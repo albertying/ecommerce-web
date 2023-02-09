@@ -7,9 +7,9 @@ const token = localStorage.getItem("token");
 
 const initialState = {
   user: {
-    id: userId ? userId : "",
+    id: userId ? userId : null,
   },
-  token: token ? token : "",
+  token: token ? token : null,
   conditionals: {
     alert: {
       show: false,
@@ -38,7 +38,13 @@ export const UserProvider = ({ children }) => {
           },
         };
       case "LOGOUT":
-        return { ...state, user: "", conditionals: { alert: { show: false } } };
+        return {
+          ...state,
+          user: {
+            id: null,
+          },
+          conditionals: { alert: { show: false } },
+        };
       case "SHOW_ALERT":
         return {
           ...state,
