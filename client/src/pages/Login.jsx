@@ -52,18 +52,16 @@ function Login() {
           required
         ></input>
 
-        <label htmlFor="password">
-          Password
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Password"
-            value={userCredentials.password}
-            onChange={handleChange}
-            required
-          ></input>
-        </label>
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Password"
+          value={userCredentials.password}
+          onChange={handleChange}
+          required
+        ></input>
 
         <button type="submit">Submit</button>
         <p>

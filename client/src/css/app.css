@@ -1,5 +1,6 @@
 p,
 a,
+label,
 h1,
 h2,
 h3,
@@ -11,7 +12,7 @@ h6 {
 }
 
 body {
-  background-color: #13293d;
+  background-color: #121420;
 }
 
 p {

@@ -1,14 +1,8 @@
 import "../css/nav.css";
 import { useUserContext } from "../context/UserContext";
 
-import { useEffect } from "react";
-
 function Nav() {
   const { user, logout } = useUserContext();
-
-  useEffect(() => {
-    console.log(user.id);
-  });
 
   return (
     <div className="nav-container">
@@ -19,15 +13,15 @@ function Nav() {
       <nav>
         <ul>
           <li>
-            {" "}
             <a
               id="log-a"
+              href="/login"
               onClick={() => {
                 if (user.id) {
                   logout();
                   document.getElementById("log-a").href = "/";
                 } else {
-                  document.getElementById("log-a").href = "/login";
+                  document.getElementById("log-a").href = "/login"; //if user is not logged in, route to login page
                 }
               }}
             >
