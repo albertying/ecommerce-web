@@ -1,6 +1,8 @@
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
 import Nav from "./components/Nav";
+import "./css/reset.css";
+import "./css/app.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -18,10 +20,12 @@ function App() {
     },
   ]);
   return (
-    <UserProvider>
-      <Nav />
-      <RouterProvider router={router} />
-    </UserProvider>
+    <div className="app-container">
+      <UserProvider>
+        <Nav />
+        <RouterProvider router={router} />
+      </UserProvider>
+    </div>
   );
 }
 export default App;

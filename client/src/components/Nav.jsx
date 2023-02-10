@@ -11,30 +11,29 @@ function Nav() {
   });
 
   return (
-    <div>
+    <div className="nav-container">
+      <div className="logo">
+        <a href="/">Logo</a>
+      </div>
+
       <nav>
-        <ul className="left">
+        <ul>
           <li>
-            <a href="/">
-              <strong className="log-a">Placeholder</strong>
+            {" "}
+            <a
+              id="log-a"
+              onClick={() => {
+                if (user.id) {
+                  logout();
+                  document.getElementById("log-a").href = "/";
+                } else {
+                  document.getElementById("log-a").href = "/login";
+                }
+              }}
+            >
+              {user.id ? "Logout" : "Login"}
             </a>
           </li>
-        </ul>
-        <ul className="right">
-          <a
-            className="log-a"
-            id="log-a"
-            onClick={() => {
-              if (user.id) {
-                logout();
-                document.getElementById("log-a").href = "/";
-              } else {
-                document.getElementById("log-a").href = "/login";
-              }
-            }}
-          >
-            {user.id ? "Logout" : "Login"}
-          </a>
         </ul>
       </nav>
     </div>
