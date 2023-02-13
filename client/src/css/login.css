@@ -46,3 +46,7 @@ button {
   color: white;
   cursor: pointer;
 }
+
+::placeholder {
+  color: #fff;
+}
