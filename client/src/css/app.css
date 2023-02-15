@@ -1,3 +1,8 @@
+:root {
+  --light-gray: #1b2432;
+  --dark-gray: #121420;
+}
+
 p,
 a,
 label,
