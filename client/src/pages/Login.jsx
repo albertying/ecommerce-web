@@ -1,8 +1,56 @@
-import "../css/login.css";
+// import "../css/login.css";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../context/UserContext";
 import Alert from "../components/Alert";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+const Wrapper = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+`;
+
+const FormWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+`;
+
+const FormInput = styled.input`
+  width: 300px;
+  padding: 15px;
+  margin: 10px 0 20px 0;
+  border: 0;
+  border-radius: 5px;
+  background-color: #1b2432;
+  color: white;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const SubmitButton = styled.button`
+  width: 330px;
+  padding: 15px;
+  margin: 10px 0 20px 0;
+  border: 0;
+  border-radius: 5px;
+  background-color: #403f4c;
+  color: white;
+  cursor: pointer;
+`;
+
+const ChangeAnchor = styled.a`
+  cursor: pointer;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 function Login() {
   const { user, conditionals, login, register } = useUserContext();
@@ -38,11 +86,12 @@ function Login() {
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit}>
+    <Wrapper>
+      <FormWrapper onSubmit={handleSubmit}>
         <h1>{member.member ? "Login" : "Register"}</h1>
+
         <label htmlFor="email">Email address</label>
-        <input
+        <FormInput
           type="email"
           id="email"
           name="email"
@@ -50,10 +99,10 @@ function Login() {
           value={userCredentials.email}
           onChange={handleChange}
           required
-        ></input>
+        ></FormInput>
 
         <label htmlFor="password">Password</label>
-        <input
+        <FormInput
           type="password"
           id="password"
           name="password"
@@ -61,9 +110,10 @@ function Login() {
           value={userCredentials.password}
           onChange={handleChange}
           required
-        ></input>
+        ></FormInput>
 
-        <button type="submit">Submit</button>
+        <SubmitButton type="submit">Submit</SubmitButton>
+
         <p>
           {member.member ? (
             <span>Don't have an account?</span>
@@ -71,7 +121,7 @@ function Login() {
             <span>Already have an account?</span>
           )}{" "}
           Click{" "}
-          <a
+          <ChangeAnchor
             onClick={() => {
               setMember({
                 ...member,
@@ -80,12 +130,12 @@ function Login() {
             }}
           >
             here
-          </a>
+          </ChangeAnchor>
           .
         </p>
         {conditionals.alert.show ? <Alert /> : null}
-      </form>
-    </div>
+      </FormWrapper>
+    </Wrapper>
   );
 }
 export default Login;

@@ -1,16 +1,37 @@
-import "../css/nav.css";
+// import "../css/nav.css";
 import { useUserContext } from "../context/UserContext";
+import styled from "styled-components";
+
+const Wrapper = styled.section`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 3rem;
+  background-color: #1b2432;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  position: fixed;
+`;
+
+const Logo = styled.div`
+  margin-left: 20rem;
+`;
+
+const NavWrapper = styled.nav`
+  margin-right: 20rem;
+`;
 
 function Nav() {
   const { user, logout } = useUserContext();
 
   return (
-    <div className="nav-container">
-      <div className="logo">
+    <Wrapper>
+      <Logo>
         <a href="/">Logo</a>
-      </div>
+      </Logo>
 
-      <nav>
+      <NavWrapper>
         <ul>
           <li>
             <a
@@ -29,8 +50,8 @@ function Nav() {
             </a>
           </li>
         </ul>
-      </nav>
-    </div>
+      </NavWrapper>
+    </Wrapper>
   );
 }
 export default Nav;

@@ -80,10 +80,13 @@ export const UserProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const { data } = await axios.post("http://localhost:5000/auth/login", {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        "http://localhost:5000/api/v1/auth/login",
+        {
+          email,
+          password,
+        }
+      );
 
       if (data.error && data.error === "User does not exist") {
         console.log("User does not exist");
@@ -110,10 +113,13 @@ export const UserProvider = ({ children }) => {
 
   const register = async (email, password) => {
     try {
-      const { data } = await axios.post("http://localhost:5000/auth/register", {
-        email,
-        password,
-      });
+      const { data } = await axios.post(
+        "http://localhost:5000/api/v1/auth/register",
+        {
+          email,
+          password,
+        }
+      );
 
       if (data.error && data.error === "User already exists") {
         console.log("User already exists");
