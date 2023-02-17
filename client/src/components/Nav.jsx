@@ -12,6 +12,7 @@ const Wrapper = styled.section`
   color: #fff;
   font-family: "Poppins", sans-serif;
   position: fixed;
+  z-index: 1;
 `;
 
 const Logo = styled.div`
