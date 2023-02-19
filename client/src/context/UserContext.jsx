@@ -27,15 +27,17 @@ export const UserProvider = ({ children }) => {
         return {
           ...state,
           user: {
-            id: action.payload,
+            id: action.payload.id,
           },
+          token: action.payload.token,
         };
       case "REGISTER":
         return {
           ...state,
           user: {
-            id: action.payload,
+            id: action.payload.id,
           },
+          token: action.payload.token,
         };
       case "LOGOUT":
         return {
@@ -105,7 +107,10 @@ export const UserProvider = ({ children }) => {
       localStorage.setItem("userId", data.userId);
       localStorage.setItem("token", data.token);
 
-      dispatch({ type: "LOGIN", payload: data.userId });
+      dispatch({
+        type: "LOGIN",
+        payload: { id: data.userId, token: data.token },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -132,7 +137,10 @@ export const UserProvider = ({ children }) => {
       localStorage.setItem("userId", data.userId);
       localStorage.setItem("token", data.token);
 
-      dispatch({ type: "REGISTER", payload: data.userId });
+      dispatch({
+        type: "REGISTER",
+        payload: { id: data.userId, token: data.token },
+      });
     } catch (error) {
       console.log(error);
     }
