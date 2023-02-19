@@ -1,7 +1,8 @@
 // import "../css/landing.css";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useUserContext } from "../context/UserContext";
 
 const Wrapper = styled.section`
   display: flex;
@@ -78,6 +79,30 @@ const CartButton = styled.button`
 function Landing() {
   const [products, setProducts] = useState([]);
 
+  const { user } = useUserContext();
+
+  const addItemToCart = (product) => {
+    const { product_id, product_price } = product;
+
+    const createOrder = async () => {
+      try {
+        const { data } = await axios.post(
+          "http://localhost:5000/api/v1/orders/create",
+          {
+            orderUserId: Number(user.id),
+            orderProductId: product_id,
+            orderQuantity: 1,
+            orderTotal: Number(product_price) * 1,
+          }
+        );
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    createOrder();
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       const { data } = await axios.get(
@@ -101,7 +126,9 @@ function Landing() {
               </ProductText>
 
               <ProductButtonWrapper>
-                <CartButton>Add to cart</CartButton>
+                <CartButton onClick={() => addItemToCart(product)}>
+                  Add to cart
+                </CartButton>
               </ProductButtonWrapper>
 
               <ProductImageWrapper>
