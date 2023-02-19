@@ -79,9 +79,10 @@ const CartButton = styled.button`
 function Landing() {
   const [products, setProducts] = useState([]);
 
-  const { user } = useUserContext();
+  const { token } = useUserContext();
 
   const addItemToCart = (product) => {
+    console.log(token);
     const { product_id, product_price } = product;
 
     const createOrder = async () => {
@@ -89,10 +90,14 @@ function Landing() {
         const { data } = await axios.post(
           "http://localhost:5000/api/v1/orders/create",
           {
-            orderUserId: Number(user.id),
             orderProductId: product_id,
             orderQuantity: 1,
             orderTotal: Number(product_price) * 1,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         console.log(data);
