@@ -82,10 +82,9 @@ const CartButton = styled.button`
 function Landing() {
   const [products, setProducts] = useState([]);
 
-  const { token } = useUserContext();
+  const { token, addToCart } = useUserContext();
 
   const addItemToCart = (product) => {
-    console.log(token);
     const { product_id, product_price } = product;
 
     const createOrder = async () => {
@@ -103,6 +102,7 @@ function Landing() {
             },
           }
         );
+        addToCart();
         console.log(data);
       } catch (error) {
         console.log(error);

@@ -4,7 +4,7 @@ import axios from "axios";
 
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
-const itemCount = localStorage.getItem("itemCount");
+const itemCount = parseInt(localStorage.getItem("itemCount"));
 
 const initialState = {
   user: {
@@ -85,6 +85,14 @@ export const UserProvider = ({ children }) => {
             itemCount: state.cart.itemCount - 1,
           },
         };
+      case "SET_CART_COUNT":
+        return {
+          ...state,
+          cart: {
+            itemCount: action.payload,
+          },
+        };
+
       case "CLEAR_CART":
         return {
           ...state,
@@ -103,6 +111,25 @@ export const UserProvider = ({ children }) => {
     setTimeout(() => {
       dispatch({ type: "HIDE_ALERT" });
     }, 3000);
+  };
+
+  const getCartCount = async (token) => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:5000/api/v1/orders/get",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      localStorage.setItem("itemCount", data.length);
+
+      dispatch({ type: "SET_CART_COUNT", payload: data.length });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const login = async (email, password) => {
@@ -127,10 +154,10 @@ export const UserProvider = ({ children }) => {
         return;
       }
 
-      console.log(data);
-
       localStorage.setItem("userId", data.userId);
       localStorage.setItem("token", data.token);
+
+      getCartCount(data.token);
 
       dispatch({
         type: "LOGIN",
@@ -157,10 +184,10 @@ export const UserProvider = ({ children }) => {
         return;
       }
 
-      console.log(data);
-
       localStorage.setItem("userId", data.userId);
       localStorage.setItem("token", data.token);
+
+      getCartCount(data.token);
 
       dispatch({
         type: "REGISTER",
@@ -174,10 +201,12 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
+    localStorage.removeItem("itemCount");
     dispatch({ type: "LOGOUT" });
   };
 
   const addToCart = () => {
+    localStorage.setItem("itemCount", state.cart.itemCount + 1);
     dispatch({ type: "ADD_TO_CART" });
   };
 
