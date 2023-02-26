@@ -4,6 +4,7 @@ import axios from "axios";
 
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
+const itemCount = localStorage.getItem("itemCount");
 
 const initialState = {
   user: {
@@ -15,6 +16,9 @@ const initialState = {
       show: false,
       message: "",
     },
+  },
+  cart: {
+    itemCount: itemCount ? itemCount : 0,
   },
 };
 
@@ -65,6 +69,27 @@ export const UserProvider = ({ children }) => {
               show: false,
               message: "",
             },
+          },
+        };
+      case "ADD_TO_CART":
+        return {
+          ...state,
+          cart: {
+            itemCount: state.cart.itemCount + 1,
+          },
+        };
+      case "REMOVE_FROM_CART":
+        return {
+          ...state,
+          cart: {
+            itemCount: state.cart.itemCount - 1,
+          },
+        };
+      case "CLEAR_CART":
+        return {
+          ...state,
+          cart: {
+            itemCount: 0,
           },
         };
       default:
@@ -152,8 +177,30 @@ export const UserProvider = ({ children }) => {
     dispatch({ type: "LOGOUT" });
   };
 
+  const addToCart = () => {
+    dispatch({ type: "ADD_TO_CART" });
+  };
+
+  const removeFromCart = () => {
+    dispatch({ type: "REMOVE_FROM_CART" });
+  };
+
+  const clearCart = () => {
+    dispatch({ type: "CLEAR_CART" });
+  };
+
   return (
-    <UserContext.Provider value={{ ...state, login, logout, register }}>
+    <UserContext.Provider
+      value={{
+        ...state,
+        login,
+        logout,
+        register,
+        addToCart,
+        removeFromCart,
+        clearCart,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
