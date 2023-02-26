@@ -1,6 +1,7 @@
 // import "../css/nav.css";
-import { useUserContext } from "../context/UserContext";
 import styled from "styled-components";
+import { useUserContext } from "../context/UserContext";
+import Cart from "./Cart";
 
 const Wrapper = styled.section`
   display: flex;
@@ -15,12 +16,19 @@ const Wrapper = styled.section`
   z-index: 1;
 `;
 
-const Logo = styled.div`
+const Left = styled.div`
   margin-left: 20rem;
 `;
 
-const NavWrapper = styled.nav`
+const Right = styled.nav`
   margin-right: 20rem;
+  ul {
+    display: flex;
+  }
+  li {
+    margin: 0 1rem;
+    list-style: none;
+  }
 `;
 
 function Nav() {
@@ -28,11 +36,11 @@ function Nav() {
 
   return (
     <Wrapper>
-      <Logo>
+      <Left>
         <a href="/">Logo</a>
-      </Logo>
+      </Left>
 
-      <NavWrapper>
+      <Right>
         <ul>
           <li>
             <a
@@ -50,8 +58,11 @@ function Nav() {
               {user.id ? "Logout" : "Login"}
             </a>
           </li>
+          <li>
+            <Cart />
+          </li>
         </ul>
-      </NavWrapper>
+      </Right>
     </Wrapper>
   );
 }
