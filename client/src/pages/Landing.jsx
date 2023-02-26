@@ -74,6 +74,9 @@ const CartButton = styled.button`
   background-color: var(--dark-gray);
   color: white;
   cursor: pointer;
+  &:active {
+    background-color: var(--light-gray);
+  }
 `;
 
 function Landing() {
