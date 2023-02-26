@@ -13,4 +13,16 @@ const createOrder = async (req, res) => {
   }
 };
 
-export { createOrder };
+const getOrders = async (req, res) => {
+  try {
+    const allOrders = await pool.query(
+      "SELECT * FROM orders WHERE order_user_id = $1",
+      [req.user]
+    );
+    res.json(allOrders.rows);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
+export { createOrder, getOrders };
