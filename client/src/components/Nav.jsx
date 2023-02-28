@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useUserContext } from "../context/UserContext";
-import Cart from "./Cart";
+import Cart from "./CartComponent";
 import { Link } from "react-router-dom";
 
 const Wrapper = styled.section`
