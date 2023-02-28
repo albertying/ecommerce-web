@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 
 import axios from "axios";
 
@@ -131,6 +131,10 @@ export const UserProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getCartCount(token);
+  }, []);
 
   const login = async (email, password) => {
     try {
