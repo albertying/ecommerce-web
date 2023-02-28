@@ -1,7 +1,7 @@
-// import "../css/nav.css";
 import styled from "styled-components";
 import { useUserContext } from "../context/UserContext";
 import Cart from "./Cart";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.section`
   display: flex;
@@ -37,26 +37,15 @@ function Nav() {
   return (
     <Wrapper>
       <Left>
-        <a href="/">Logo</a>
+        <Link to="/">Logo</Link>
       </Left>
 
       <Right>
         <ul>
           <li>
-            <a
-              id="log-a"
-              href="/login"
-              onClick={() => {
-                if (user.id) {
-                  logout();
-                  document.getElementById("log-a").href = "/";
-                } else {
-                  document.getElementById("log-a").href = "/login"; //if user is not logged in, route to login page
-                }
-              }}
-            >
+            <Link to={user.id ? "/" : "/login"} onClick={logout}>
               {user.id ? "Logout" : "Login"}
-            </a>
+            </Link>
           </li>
           <li>{user.id ? <Cart /> : null}</li>
         </ul>
