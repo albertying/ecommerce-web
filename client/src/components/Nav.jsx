@@ -58,9 +58,7 @@ function Nav() {
               {user.id ? "Logout" : "Login"}
             </a>
           </li>
-          <li>
-            <Cart />
-          </li>
+          <li>{user.id ? <Cart /> : null}</li>
         </ul>
       </Right>
     </Wrapper>
