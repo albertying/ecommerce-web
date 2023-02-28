@@ -125,6 +125,7 @@ export const UserProvider = ({ children }) => {
       );
 
       if (data.error && data.error === "jwt malformed") {
+        localStorage.removeItem("token");
         return;
       }
 

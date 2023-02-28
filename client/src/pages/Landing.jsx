@@ -102,8 +102,8 @@ function Landing() {
             },
           }
         );
-        console.log(data);
         if (data.error && data.error === "jwt malformed") {
+          localStorage.removeItem("token");
           return;
         }
         addToCart();
