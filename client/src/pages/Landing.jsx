@@ -102,8 +102,11 @@ function Landing() {
             },
           }
         );
-        addToCart();
         console.log(data);
+        if (data.error && data.error === "jwt malformed") {
+          return;
+        }
+        addToCart();
       } catch (error) {
         console.log(error);
       }

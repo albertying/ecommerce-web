@@ -124,6 +124,10 @@ export const UserProvider = ({ children }) => {
         }
       );
 
+      if (data.error && data.error === "jwt malformed") {
+        return;
+      }
+
       localStorage.setItem("itemCount", data.length);
 
       dispatch({ type: "SET_CART_COUNT", payload: data.length });
