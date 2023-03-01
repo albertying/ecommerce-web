@@ -1,6 +1,7 @@
 import Login from "./pages/Login";
 import Landing from "./pages/Landing";
 import Nav from "./components/Nav";
+import Cart from "./pages/Cart";
 import "./css/reset.css";
 import "./css/app.css";
 
@@ -29,6 +30,10 @@ function App() {
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/cart",
+          element: <Cart />,
         },
       ],
     },
