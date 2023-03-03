@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import Cart from "./pages/Cart";
 import "./css/reset.css";
 import "./css/app.css";
+import Profile from "./pages/Profile";
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
@@ -34,6 +35,10 @@ function App() {
         {
           path: "/cart",
           element: <Cart />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
         },
       ],
     },
